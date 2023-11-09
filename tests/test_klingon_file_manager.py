@@ -138,36 +138,40 @@ def test_post_local_bin_file():
 
 # Test 7 - post s3 text file
 def test_post_s3_txt_file():
-    result = manage_file('post', "s3://"+s3_bucket_name+"/"+test_txt_post, test_txt_content)
+    result = manage_file(
+        'post', f"s3://{s3_bucket_name}/{test_txt_post}", test_txt_content
+    )
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'post'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_txt_post
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_txt_post}"
     assert result['binary'] is False
     # Additional check: Read the file from s3 to make sure content was written
     # correctly
-    validate = manage_file('get', "s3://"+s3_bucket_name+"/"+test_txt_post, None)
+    validate = manage_file('get', f"s3://{s3_bucket_name}/{test_txt_post}", None)
     print(validate)
     assert validate['status'] == 200
     assert validate['action'] == 'get'
     assert validate['content'].decode() == test_txt_content
-    assert validate['path'] == "s3://"+s3_bucket_name+"/"+test_txt_post
+    assert validate['path'] == f"s3://{s3_bucket_name}/{test_txt_post}"
 
 # Test 8 - post s3 binary file
 def test_post_s3_bin_file():
-    result = manage_file('post', "s3://"+s3_bucket_name+"/"+test_bin_post, test_bin_content)
+    result = manage_file(
+        'post', f"s3://{s3_bucket_name}/{test_bin_post}", test_bin_content
+    )
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'post'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_bin_post
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_bin_post}"
     # Additional check: Read the file from s3 to make sure content was written
     # correctly
-    validate = manage_file('get', "s3://"+s3_bucket_name+"/"+test_bin_post, None)
+    validate = manage_file('get', f"s3://{s3_bucket_name}/{test_bin_post}", None)
     print(validate)
     assert validate['status'] == 200
     assert validate['action'] == 'get'
     assert validate['content'] == test_bin_content
-    assert validate['path'] == "s3://"+s3_bucket_name+"/"+test_bin_post
+    assert validate['path'] == f"s3://{s3_bucket_name}/{test_bin_post}"
 
 # Test 9 - Test invalid action
 def test_invalid_action():
@@ -185,7 +189,7 @@ def test_get_invalid_local_path():
 
 # Test 11 - Test invalid S3 path
 def test_get_invalid_s3_path():
-    result = manage_file('get', 's3://'+s3_bucket_name+'/nonexistent.txt' , None)
+    result = manage_file('get', f's3://{s3_bucket_name}/nonexistent.txt', None)
     print(result)
     assert result['status'] == 500
     assert result['action'] == 'get'
@@ -253,38 +257,38 @@ def test_delete_local_test_bin_get_file():
 # Test 18 - delete s3 test_txt_post file
 def test_delete_s3_test_txt_post_file():
     # Now, delete the s3 text file
-    result = manage_file('delete', "s3://"+s3_bucket_name+"/"+test_txt_post, None)
+    result = manage_file('delete', f"s3://{s3_bucket_name}/{test_txt_post}", None)
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'delete'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_txt_post
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_txt_post}"
 
 # Test 19 - delete s3 test_bin_post file
 def test_delete_s3_test_bin_post_file():
     # Now, delete the s3 test_bin_post file
-    result = manage_file('delete', "s3://"+s3_bucket_name+"/"+test_bin_post, None)
+    result = manage_file('delete', f"s3://{s3_bucket_name}/{test_bin_post}", None)
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'delete'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_bin_post
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_bin_post}"
 
 # Test 20 - delete s3 test_txt_get file
 def test_delete_s3_test_txt_get_file():
     # Now, delete the s3 test_txt_get file
-    result = manage_file('delete', "s3://"+s3_bucket_name+"/"+test_txt_get, None)
+    result = manage_file('delete', f"s3://{s3_bucket_name}/{test_txt_get}", None)
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'delete'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_txt_get
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_txt_get}"
     
 # Test 21 - delete s3 test_bin_get file
 def test_delete_s3_test_bin_get_file():
     # Now, delete the s3 test_bin_get file
-    result = manage_file('delete', "s3://"+s3_bucket_name+"/"+test_bin_get, None)
+    result = manage_file('delete', f"s3://{s3_bucket_name}/{test_bin_get}", None)
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'delete'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_bin_get
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_bin_get}"
 
 def test_teardown_test_files():
     # No changes needed here

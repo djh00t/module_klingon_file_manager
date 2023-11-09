@@ -28,9 +28,7 @@ test_txt_post = 'tests/test_post_txt_file.txt'
 test_bin_post = 'tests/test_post_bin_file.wav'
 
 def file_size(file_content):
-    # Get the file size in bytes
-    file_size = len(file_content)
-    return file_size
+    return len(file_content)
 
 # Get the file size in either bytes, kilobytes, megabytes or gigabytes depending
 # on how large it is, showing up to 6 decimal places, returning a
@@ -48,7 +46,15 @@ def get_file_size(file_size, show_bytes=False):
 # Generate Test Binary Files
 def create_test_binary_file(file_name, file_size):
     # Generate a 100MB file using dd command
-    subprocess.run(['dd', 'if=/dev/zero', 'of=./' + file_name, 'bs=1M', 'count=' + file_size])
+    subprocess.run(
+        [
+            'dd',
+            'if=/dev/zero',
+            f'of=./{file_name}',
+            'bs=1M',
+            f'count={file_size}',
+        ]
+    )
 
 # File Upload Function
 def file_upload(action, path, content, md5=None, metadata={}, debug=False):
@@ -69,9 +75,7 @@ def file_upload(action, path, content, md5=None, metadata={}, debug=False):
 def get_md5_hash(file_content):
     # Get the md5 hash of the file content
     md5_hash = hashlib.md5(file_content).digest()
-    # Convert md5_hash to a hex string for metadata and logging
-    md5_hash_hex = md5_hash.hex()
-    return md5_hash_hex
+    return md5_hash.hex()
 
 
 def test_small_upload_progress():
@@ -104,10 +108,10 @@ def test_small_upload_progress():
     # Upload file
     result = file_upload(
         action='post',
-        path="s3://fsg-gobbler/tests/" + file_name,
+        path=f"s3://fsg-gobbler/tests/{file_name}",
         content=file_content,
         metadata=metadata,
-        debug=False
+        debug=False,
     )
 
     # Announce the upload result
@@ -146,10 +150,10 @@ def test_medium_upload_progress():
     # Upload file
     result = file_upload(
         action='post',
-        path="s3://fsg-gobbler/tests/" + file_name,
+        path=f"s3://fsg-gobbler/tests/{file_name}",
         content=file_content,
         metadata=metadata,
-        debug=True
+        debug=True,
     )
 
     # Announce the upload result
@@ -188,10 +192,10 @@ def test_large_upload_progress():
     # Upload file
     result = file_upload(
         action='post',
-        path="s3://fsg-gobbler/tests/" + file_name,
+        path=f"s3://fsg-gobbler/tests/{file_name}",
         content=file_content,
         metadata=metadata,
-        debug=False
+        debug=False,
     )
 
     # Announce the upload result

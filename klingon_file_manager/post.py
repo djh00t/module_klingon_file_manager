@@ -96,8 +96,6 @@ def _post_to_s3(
     Returns:
         A dictionary containing the status of the post operation to S3.
     """
-    debug_info = {}
-
     # Your S3 logic here
     # Extract S3 bucket and key from the path
     s3_uri_parts = path[5:].split("/", 1)
@@ -108,11 +106,11 @@ def _post_to_s3(
     s3 = boto3.resource('s3')
     s3_client = boto3.client('s3')
 
-    # Additional Debug Info
-    debug_info["s3_uri_parts"] = s3_uri_parts
-    debug_info["bucket_name"] = bucket_name
-    debug_info["key"] = key
-
+    debug_info = {
+        "s3_uri_parts": s3_uri_parts,
+        "bucket_name": bucket_name,
+        "key": key,
+    }
     # Handle MD5 and metadata
     if md5:
         calculated_md5 = hashlib.md5(content).hexdigest()

@@ -79,19 +79,18 @@ def _get_from_s3(path: str, debug: bool) -> Dict[str, Union[int, str, bytes, boo
     Returns:
         A dictionary containing the status of the get operation from S3.
     """
-    debug_info = {}
-
     s3_uri_parts = path[5:].split("/", 1)
     bucket_name = s3_uri_parts[0]
     key = s3_uri_parts[1]
-    
-    debug_info["s3_uri_parts"] = s3_uri_parts
-    debug_info["bucket_name"] = bucket_name
-    debug_info["key"] = key
 
+    debug_info = {
+        "s3_uri_parts": s3_uri_parts,
+        "bucket_name": bucket_name,
+        "key": key,
+    }
     s3 = resource('s3')
     s3_object = s3.Object(bucket_name, key)
-    
+
     try:
         content = s3_object.get()['Body'].read()
     except Exception as exception:
@@ -103,7 +102,7 @@ def _get_from_s3(path: str, debug: bool) -> Dict[str, Union[int, str, bytes, boo
             "binary": None,
             "debug": debug_info if debug else {},
         }
-    
+
     return {
         "status": 200,
         "message": "File read successfully from S3.",

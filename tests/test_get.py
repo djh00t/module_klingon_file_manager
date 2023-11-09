@@ -89,7 +89,7 @@ def test_get_invalid_local_path():
 
 # Test 11 - Test invalid S3 path
 def test_get_invalid_s3_path():
-    result = manage_file('get', 's3://'+s3_bucket_name+'/nonexistent.txt' , None)
+    result = manage_file('get', f's3://{s3_bucket_name}/nonexistent.txt', None)
     print(result)
     assert result['status'] == 500
     assert result['action'] == 'get'

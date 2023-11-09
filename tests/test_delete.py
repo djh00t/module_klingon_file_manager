@@ -69,35 +69,35 @@ def test_delete_local_test_bin_get_file():
 # Test 18 - delete s3 test_txt_post file
 def test_delete_s3_test_txt_post_file():
     # Now, delete the s3 text file
-    result = manage_file('delete', "s3://"+s3_bucket_name+"/"+test_txt_post, None)
+    result = manage_file('delete', f"s3://{s3_bucket_name}/{test_txt_post}", None)
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'delete'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_txt_post
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_txt_post}"
 
 # Test 19 - delete s3 test_bin_post file
 def test_delete_s3_test_bin_post_file():
     # Now, delete the s3 test_bin_post file
-    result = manage_file('delete', "s3://"+s3_bucket_name+"/"+test_bin_post, None)
+    result = manage_file('delete', f"s3://{s3_bucket_name}/{test_bin_post}", None)
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'delete'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_bin_post
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_bin_post}"
 
 # Test 20 - delete s3 test_txt_get file
 def test_delete_s3_test_txt_get_file():
     # Now, delete the s3 test_txt_get file
-    result = manage_file('delete', "s3://"+s3_bucket_name+"/"+test_txt_get, None)
+    result = manage_file('delete', f"s3://{s3_bucket_name}/{test_txt_get}", None)
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'delete'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_txt_get
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_txt_get}"
     
 # Test 21 - delete s3 test_bin_get file
 def test_delete_s3_test_bin_get_file():
     # Now, delete the s3 test_bin_get file
-    result = manage_file('delete', "s3://"+s3_bucket_name+"/"+test_bin_get, None)
+    result = manage_file('delete', f"s3://{s3_bucket_name}/{test_bin_get}", None)
     print(result)
     assert result['status'] == 200
     assert result['action'] == 'delete'
-    assert result['path'] == "s3://"+s3_bucket_name+"/"+test_bin_get
+    assert result['path'] == f"s3://{s3_bucket_name}/{test_bin_get}"
